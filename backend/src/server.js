@@ -14,6 +14,9 @@ const taskRoutes = require('./routes/taskRoutes');
 // Initialize Express app
 const app = express();
 
+// Trust proxy - required for Render, Heroku, and other reverse proxies
+app.set('trust proxy', 1);
+
 // Connect to database
 connectDatabase();
 

@@ -1,4 +1,3 @@
-# Vercel Configuration for Frontend
 {
   "version": 2,
   "buildCommand": "npm run build",

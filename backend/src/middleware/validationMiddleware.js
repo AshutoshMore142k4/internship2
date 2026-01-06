@@ -125,8 +125,8 @@ const validateTaskUpdate = [
   
   body('status')
     .optional()
-    .isIn(['pending', 'in-progress', 'completed'])
-    .withMessage('Status must be one of: pending, in-progress, completed'),
+    .isIn(['pending', 'in_progress', 'completed'])
+    .withMessage('Status must be one of: pending, in_progress, completed'),
   
   body('priority')
     .optional()
@@ -189,7 +189,7 @@ const validatePagination = [
   
   query('status')
     .optional()
-    .isIn(['pending', 'in-progress', 'completed'])
+    .isIn(['pending', 'in_progress', 'completed'])
     .withMessage('Invalid status value'),
   
   query('priority')
