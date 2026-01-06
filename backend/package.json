@@ -1,0 +1,38 @@
+{
+  "name": "task-manager-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Task Manager application with JWT authentication",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required for Node.js\""
+  },
+  "keywords": [
+    "express",
+    "jwt",
+    "authentication",
+    "mongodb",
+    "rest-api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.6.0",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "express-validator": "^7.0.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
