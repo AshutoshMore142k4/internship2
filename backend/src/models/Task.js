@@ -49,12 +49,10 @@ const TaskSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Compound indexes for performance optimization
 TaskSchema.index({ userId: 1, status: 1 });
 TaskSchema.index({ userId: 1, createdAt: -1 });
 TaskSchema.index({ userId: 1, priority: 1 });
 
-// Method to get task as plain object
 TaskSchema.methods.toSafeObject = function() {
   const task = this.toObject();
   delete task.__v;

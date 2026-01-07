@@ -1,10 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-/**
- * Generate JWT token for user authentication
- * @param {string} userId - User's MongoDB ObjectId
- * @returns {string} JWT token
- */
 const generateToken = (userId) => {
   return jwt.sign(
     { userId },
@@ -13,11 +8,6 @@ const generateToken = (userId) => {
   );
 };
 
-/**
- * Verify JWT token
- * @param {string} token - JWT token to verify
- * @returns {object} Decoded token payload
- */
 const verifyToken = (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
@@ -26,11 +16,6 @@ const verifyToken = (token) => {
   }
 };
 
-/**
- * Decode JWT token without verification
- * @param {string} token - JWT token to decode
- * @returns {object} Decoded token payload
- */
 const decodeToken = (token) => {
   return jwt.decode(token);
 };

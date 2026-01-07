@@ -1,16 +1,10 @@
 const Task = require('../models/Task');
 const { successResponse, errorResponse, getPaginationMetadata } = require('../utils/responseUtils');
 
-/**
- * Create a new task
- * @route POST /api/tasks
- * @access Private
- */
 const createTask = async (req, res, next) => {
   try {
     const { title, description, status, priority, dueDate } = req.body;
 
-    // Create task
     const task = await Task.create({
       title,
       description,
@@ -38,11 +32,6 @@ const createTask = async (req, res, next) => {
   }
 };
 
-/**
- * Get all tasks for authenticated user with pagination and filters
- * @route GET /api/tasks
- * @access Private
- */
 const getTasks = async (req, res, next) => {
   try {
     const {
@@ -55,10 +44,8 @@ const getTasks = async (req, res, next) => {
       order = 'desc'
     } = req.query;
 
-    // Build query
     const query = { userId: req.userId };
 
-    // Add filters
     if (status) {
       query.status = status;
     }
@@ -74,16 +61,13 @@ const getTasks = async (req, res, next) => {
       ];
     }
 
-    // Calculate pagination
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
     const skip = (pageNum - 1) * limitNum;
 
-    // Build sort object
     const sort = {};
     sort[sortBy] = order === 'asc' ? 1 : -1;
 
-    // Execute query
     const [tasks, totalTasks] = await Promise.all([
       Task.find(query)
         .sort(sort)
@@ -93,7 +77,6 @@ const getTasks = async (req, res, next) => {
       Task.countDocuments(query)
     ]);
 
-    // Format tasks
     const formattedTasks = tasks.map(task => ({
       id: task._id,
       title: task.title,
@@ -105,7 +88,6 @@ const getTasks = async (req, res, next) => {
       updatedAt: task.updatedAt
     }));
 
-    // Get pagination metadata
     const pagination = getPaginationMetadata(pageNum, limitNum, totalTasks);
 
     return successResponse(res, 200, 'Tasks retrieved successfully', {
@@ -117,11 +99,6 @@ const getTasks = async (req, res, next) => {
   }
 };
 
-/**
- * Get single task by ID
- * @route GET /api/tasks/:id
- * @access Private
- */
 const getTaskById = async (req, res, next) => {
   try {
     const task = await Task.findOne({
@@ -151,16 +128,10 @@ const getTaskById = async (req, res, next) => {
   }
 };
 
-/**
- * Update task
- * @route PUT /api/tasks/:id
- * @access Private
- */
 const updateTask = async (req, res, next) => {
   try {
     const { title, description, status, priority, dueDate } = req.body;
 
-    // Build update object with only provided fields
     const updateData = {};
     if (title !== undefined) updateData.title = title;
     if (description !== undefined) updateData.description = description;
@@ -168,7 +139,6 @@ const updateTask = async (req, res, next) => {
     if (priority !== undefined) updateData.priority = priority;
     if (dueDate !== undefined) updateData.dueDate = dueDate;
 
-    // Find task and verify ownership
     const task = await Task.findOneAndUpdate(
       { _id: req.params.id, userId: req.userId },
       updateData,
@@ -195,11 +165,6 @@ const updateTask = async (req, res, next) => {
   }
 };
 
-/**
- * Delete task
- * @route DELETE /api/tasks/:id
- * @access Private
- */
 const deleteTask = async (req, res, next) => {
   try {
     const task = await Task.findOneAndDelete({
@@ -217,11 +182,6 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
-/**
- * Get task statistics
- * @route GET /api/tasks/stats
- * @access Private
- */
 const getTaskStats = async (req, res, next) => {
   try {
     const stats = await Task.aggregate([
@@ -262,7 +222,6 @@ const getTaskStats = async (req, res, next) => {
       low: 0
     };
 
-    // Remove _id field
     delete statsData._id;
 
     return successResponse(res, 200, 'Statistics retrieved successfully', statsData);

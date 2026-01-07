@@ -65,7 +65,6 @@ const TaskList: React.FC<TaskListProps> = ({
 
   useEffect(() => {
     fetchTasks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, searchQuery, statusFilter, priorityFilter]);
 
   const handleDelete = async () => {

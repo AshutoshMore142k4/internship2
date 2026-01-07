@@ -26,7 +26,6 @@ const RegisterForm: React.FC = () => {
 
   const password = watch('password');
 
-  // Password strength indicator
   const getPasswordStrength = (pwd: string) => {
     if (!pwd) return { strength: 0, label: '' };
     

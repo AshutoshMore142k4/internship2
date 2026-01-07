@@ -1,11 +1,6 @@
 const User = require('../models/User');
 const { successResponse, errorResponse } = require('../utils/responseUtils');
 
-/**
- * Get user profile
- * @route GET /api/users/profile
- * @access Private
- */
 const getProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
@@ -30,21 +25,14 @@ const getProfile = async (req, res, next) => {
   }
 };
 
-/**
- * Update user profile
- * @route PUT /api/users/profile
- * @access Private
- */
 const updateProfile = async (req, res, next) => {
   try {
     const { name, avatar } = req.body;
 
-    // Build update object with only provided fields
     const updateData = {};
     if (name !== undefined) updateData.name = name;
     if (avatar !== undefined) updateData.avatar = avatar;
 
-    // Update user
     const user = await User.findByIdAndUpdate(
       req.userId,
       updateData,
@@ -70,11 +58,6 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
-/**
- * Delete user account
- * @route DELETE /api/users/profile
- * @access Private
- */
 const deleteAccount = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.userId);
@@ -83,7 +66,6 @@ const deleteAccount = async (req, res, next) => {
       return errorResponse(res, 404, 'User not found');
     }
 
-    // Also delete all tasks associated with this user
     const Task = require('../models/Task');
     await Task.deleteMany({ userId: req.userId });
 

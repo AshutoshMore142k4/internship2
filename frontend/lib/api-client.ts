@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Type definitions
 interface RegisterData {
   name: string;
   email: string;
@@ -41,15 +40,12 @@ const apiClient = axios.create({
   },
 });
 
-// Only log in development
 if (process.env.NODE_ENV === 'development') {
   console.log('API Base URL:', process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api');
 }
 
-// Request interceptor to add auth token
 apiClient.interceptors.request.use(
   (config) => {
-    // Get token from localStorage
     const token = localStorage.getItem('token');
     
     if (token) {
@@ -63,39 +59,30 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle errors
 apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    // Handle different error scenarios
     if (error.response) {
-      // Server responded with error status
       const { status, data } = error.response;
       
-      // Handle unauthorized (401) - token expired or invalid
       if (status === 401) {
-        // Clear local storage and redirect to login
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         
-        // Only redirect if not already on login page
         if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
           window.location.href = '/login';
         }
       }
       
-      // Return error message from server
       return Promise.reject(data);
     } else if (error.request) {
-      // Request made but no response received
       return Promise.reject({
         success: false,
         message: 'No response from server. Please check your connection.',
       });
     } else {
-      // Error in request setup
       return Promise.reject({
         success: false,
         message: error.message || 'An error occurred',
@@ -104,7 +91,6 @@ apiClient.interceptors.response.use(
   }
 );
 
-// API methods
 export const authAPI = {
   register: (data: RegisterData) => apiClient.post('/auth/register', data),
   login: (data: LoginData) => apiClient.post('/auth/login', data),

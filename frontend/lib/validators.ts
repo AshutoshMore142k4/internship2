@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// Register validation schema
 export const registerSchema = z.object({
   name: z
     .string()
@@ -24,7 +23,6 @@ export const registerSchema = z.object({
   path: ['confirmPassword'],
 });
 
-// Login validation schema
 export const loginSchema = z.object({
   email: z
     .string()
@@ -33,7 +31,6 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-// Task validation schema
 export const taskSchema = z.object({
   title: z
     .string()
@@ -48,7 +45,6 @@ export const taskSchema = z.object({
   dueDate: z.string().optional(),
 });
 
-// Profile update validation schema
 export const profileUpdateSchema = z.object({
   name: z
     .string()
@@ -59,7 +55,6 @@ export const profileUpdateSchema = z.object({
   avatar: z.string().url('Avatar must be a valid URL').optional(),
 });
 
-// Type exports
 export type RegisterFormData = z.infer<typeof registerSchema>;
 export type LoginFormData = z.infer<typeof loginSchema>;
 export type TaskFormData = z.infer<typeof taskSchema>;

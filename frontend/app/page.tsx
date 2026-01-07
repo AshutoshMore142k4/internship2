@@ -3,14 +3,12 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow"></div>
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow animation-delay-2000"></div>
         <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow animation-delay-4000"></div>
       </div>
 
-      {/* Navigation */}
       <nav className="relative z-10 border-b border-white/20 backdrop-blur-md bg-white/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
@@ -34,11 +32,9 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <main className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-20">
           <div className="text-center animate-slide-up">
-            {/* Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full glass mb-8 animate-scale-in">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></span>
               <span className="text-sm font-medium text-dark-700">Now with AI-powered task suggestions</span>
@@ -74,7 +70,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Social proof */}
             <div className="flex justify-center items-center gap-8 text-sm text-dark-600 flex-wrap">
               <div className="flex items-center gap-2">
                 <div className="flex -space-x-2">
@@ -93,7 +88,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Dashboard Preview */}
           <div className="mt-20">
             <div className="relative mx-auto max-w-5xl">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-accent-600 rounded-3xl blur-3xl opacity-20"></div>

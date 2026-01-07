@@ -29,7 +29,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Initialize auth state from localStorage
   useEffect(() => {
     const initAuth = () => {
       try {
@@ -57,11 +56,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await authAPI.login({ email, password });
       const { user, token } = response.data.data;
 
-      // Store in localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Update state
       setToken(token);
       setUser(user);
     } catch (error: any) {
@@ -74,11 +71,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await authAPI.register({ name, email, password });
       const { user, token } = response.data.data;
 
-      // Store in localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Update state
       setToken(token);
       setUser(user);
     } catch (error: any) {
@@ -87,15 +82,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    // Clear localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 
-    // Clear state
     setToken(null);
     setUser(null);
 
-    // Call logout API (optional, for server-side cleanup)
     try {
       authAPI.logout();
     } catch (error) {

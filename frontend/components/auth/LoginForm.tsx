@@ -42,7 +42,6 @@ const LoginForm: React.FC = () => {
   return (
     <div className="w-full max-w-md animate-slide-up">
       <div className="glass backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-white/20">
-        {/* Logo */}
         <div className="flex justify-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl flex items-center justify-center shadow-lg">
             <svg className="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

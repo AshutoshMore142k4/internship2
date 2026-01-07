@@ -1,8 +1,5 @@
 const { body, query, param, validationResult } = require('express-validator');
 
-/**
- * Middleware to handle validation errors
- */
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   
@@ -20,9 +17,6 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-/**
- * Validation rules for user registration
- */
 const validateRegister = [
   body('email')
     .trim()
@@ -46,9 +40,6 @@ const validateRegister = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for user login
- */
 const validateLogin = [
   body('email')
     .trim()
@@ -63,9 +54,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for task creation
- */
 const validateTask = [
   body('title')
     .trim()
@@ -105,9 +93,6 @@ const validateTask = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for task update
- */
 const validateTaskUpdate = [
   body('title')
     .optional()
@@ -141,9 +126,6 @@ const validateTaskUpdate = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for profile update
- */
 const validateProfileUpdate = [
   body('name')
     .optional()
@@ -162,9 +144,6 @@ const validateProfileUpdate = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for MongoDB ObjectId
- */
 const validateObjectId = [
   param('id')
     .isMongoId()
@@ -173,9 +152,6 @@ const validateObjectId = [
   handleValidationErrors
 ];
 
-/**
- * Validation rules for pagination query parameters
- */
 const validatePagination = [
   query('page')
     .optional()

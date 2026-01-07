@@ -1,16 +1,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-/**
- * Middleware to verify JWT token and authenticate user
- * Extracts token from Authorization header and validates it
- */
 const verifyToken = async (req, res, next) => {
   try {
-    // Get token from header
     const authHeader = req.headers.authorization;
 
-    // Check if token exists
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
         success: false,
@@ -18,7 +12,6 @@ const verifyToken = async (req, res, next) => {
       });
     }
 
-    // Extract token
     const token = authHeader.split(' ')[1];
 
     if (!token) {
@@ -29,10 +22,8 @@ const verifyToken = async (req, res, next) => {
     }
 
     try {
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Fetch user from database (excluding password)
       const user = await User.findById(decoded.userId).select('-password');
 
       if (!user) {
@@ -42,13 +33,11 @@ const verifyToken = async (req, res, next) => {
         });
       }
 
-      // Attach user to request object
       req.user = user;
       req.userId = decoded.userId;
 
       next();
     } catch (error) {
-      // Handle specific JWT errors
       if (error.name === 'TokenExpiredError') {
         return res.status(401).json({
           success: false,

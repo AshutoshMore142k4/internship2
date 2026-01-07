@@ -42,20 +42,15 @@ const UserSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for performance
 UserSchema.index({ email: 1 });
 
-// Hash password before saving
 UserSchema.pre('save', async function(next) {
-  // Only hash if password is modified
   if (!this.isModified('password')) {
     return next();
   }
 
   try {
-    // Generate salt with 10 rounds
     const salt = await bcrypt.genSalt(10);
-    // Hash password
     this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
@@ -63,7 +58,6 @@ UserSchema.pre('save', async function(next) {
   }
 });
 
-// Method to compare passwords
 UserSchema.methods.comparePassword = async function(candidatePassword) {
   try {
     return await bcrypt.compare(candidatePassword, this.password);
@@ -72,7 +66,6 @@ UserSchema.methods.comparePassword = async function(candidatePassword) {
   }
 };
 
-// Method to get user without sensitive data
 UserSchema.methods.toSafeObject = function() {
   const user = this.toObject();
   delete user.password;
