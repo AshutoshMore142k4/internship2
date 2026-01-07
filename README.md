@@ -1,3 +1,7 @@
+![Screenshot 1](Screenshot%202026-01-07%20143425.png)
+![Screenshot 2](Screenshot%202026-01-07%20143438.png)
+
+
 # Scalable Authentication & Dashboard Web Application
 
 A production-ready full-stack web application with JWT-based authentication and task management dashboard, demonstrating enterprise-level architecture and security practices.
